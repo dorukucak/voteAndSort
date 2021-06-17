@@ -27,17 +27,19 @@ class App extends React.Component {
     const option = this.state.options[randomNum];
     this.setState(() => ({selectedOption: option}));
   };
+
   handleAddOption = (option) => {
     if (!option) {
       return 'Enter valid value to add item';
     } else if (this.state.options.indexOf(option) > -1) {
       return 'This option already exists';
     }
-
     this.setState((prevState) => ({
       options: prevState.options.concat(option)
     }));
   };
+
+
   componentDidMount() {
     try {
       const json = localStorage.getItem('options');
@@ -66,7 +68,7 @@ class App extends React.Component {
           <Header />        
           <Switch>
               <Route path="/" render={() => <Main {...this.state}/>} exact={true} />
-              <Route path="/create"  render={() => <AddLinkPage {...this.state}/>}/>        
+              <Route path="/create"  render={() => <AddLinkPage {...this.state} handleAddOption={this.handleAddOption} />}/>        
           </Switch>
           </div> 
    </BrowserRouter>
@@ -76,11 +78,15 @@ class App extends React.Component {
 
 class AddLinkPage extends React.Component {
 
+
   render() {
     return (
+      <div>
+      <NavLink to="/" activeClassName="is-active">Return to homepage</NavLink>
       <AddOption
-      handleAddOption={this.handleAddOption}
+      handleAddOption={this.props.handleAddOption}
     />
+    </div>
     )
   }
 }
