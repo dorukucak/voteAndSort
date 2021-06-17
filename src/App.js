@@ -67,7 +67,12 @@ class App extends React.Component {
       <div>
           <Header />        
           <Switch>
-              <Route path="/" render={() => <Main {...this.state}/>} exact={true} />
+              <Route path="/" render={() => 
+                <Main {...this.state} 
+                handleDeleteOptions={this.handleDeleteOptions}
+                handleDeleteOption={this.handleDeleteOption}
+                
+                />} exact={true} />
               <Route path="/create"  render={() => <AddLinkPage {...this.state} handleAddOption={this.handleAddOption} />}/>        
           </Switch>
           </div> 
@@ -77,7 +82,6 @@ class App extends React.Component {
 };
 
 class AddLinkPage extends React.Component {
-
 
   render() {
     return (
