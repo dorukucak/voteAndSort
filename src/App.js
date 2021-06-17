@@ -210,7 +210,7 @@ const Option = (props) => (
 const Options = (props) =>  (
   <div>  
   {props.options.length === 0 && <p className='widget__message'>Please submit a link to get started!</p>}
-  {
+  <list className='list'>{
     props.options.map((option, index) => (
       <Option 
         key={index}
@@ -223,7 +223,7 @@ const Options = (props) =>  (
         handleDeleteOption={props.handleDeleteOption}
       />
     ))
-  }
+  }</list>
   </div>);
 
 
@@ -241,8 +241,8 @@ class Main extends React.Component {
           value={this.props.filters.sortBy}
           onChange={this.props.onSortChange}
           >
-          <option value='Asc' >Asc</option>
-          <option value='Desc'>Desc</option>
+          <option value='Asc' >Desc</option>  {/* reverse value due to flex-direction: column-reverse at App.css */}
+          <option value='Desc'>Asc</option>
           </select>
       <Options
       options={this.props.options}

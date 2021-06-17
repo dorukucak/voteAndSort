@@ -58,3 +58,8 @@
   font-size: 20px;
 
 }
+
+.list {
+  display: flex;
+  flex-direction: column-reverse
+}
