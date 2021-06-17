@@ -29,6 +29,7 @@ class App extends React.Component {
     } else if (this.state.options.indexOf(option) > -1) {
       return 'This option already exists';
     }
+    alert(option[0] + ' is added!');
     this.setState((prevState) => ({
       options: prevState.options.concat([option])
     }));
@@ -180,7 +181,7 @@ class AddOption extends React.Component {
   
     <div className='header'>
       <div className='container'>
-      <img src={logo} alt="hepsiburada-logo" width="200" height="125"/>
+      <img src={logo} alt="hepsiburada-logo" width="200" height="115"/>
       </div>      
     </div>
   
@@ -195,14 +196,13 @@ const Option = (props) => (
         props.handleDeleteOption(props.count);
       }}>remove</button>    
       <button className='vote'
-      onClick={(e) => {
-        props.handleUpVote(props.count, props.vote);
+         onClick={(e) => {
+           props.handleUpVote(props.count, props.vote);
       }}>Up Vote</button>
       <button className='vote'
-      onClick={(e) => {
-        props.handleDownVote(props.count, props.vote);
-      }}>Down Vote</button>
-    
+        onClick={(e) => {
+          props.handleDownVote(props.count, props.vote);
+         }}>Down Vote</button>    
   </div>
 );
 
