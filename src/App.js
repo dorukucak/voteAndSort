@@ -9,6 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {options: [],
+      filters: 'Asc',
       selectedOption: undefined};
   };
   
@@ -80,7 +81,33 @@ class App extends React.Component {
   }
   componentWillUnmount() {
     console.log('componentWillUnmount');
-  }
+  };
+
+onSortChange = (e) => {    
+    if (e.target.value === 'Asc') {
+    this.setState({
+    options: [...this.state.options].sort(function(a, b) {
+    if (a[2] < b[2]) {
+      return -1;
+    }
+    if (a[2] < b[2]) {
+      return 1;
+    }
+    return 0;
+    })
+  });} else  {
+    this.setState({
+    options: [...this.state.options].sort(function(a, b) {
+      if (a[2] > b[2]) {
+        return -1;
+      }
+      if (a[2] > b[2]) {
+        return 1;
+      }
+      return 0;
+    })
+  });}
+  };    
 
  render() { return (
       <BrowserRouter>
@@ -89,10 +116,10 @@ class App extends React.Component {
           <Switch>
               <Route path="/" render={() => 
                 <Main {...this.state} 
-                handleDeleteOptions={this.handleDeleteOptions}
                 handleDeleteOption={this.handleDeleteOption}  
                 handleUpVote={this.handleUpVote}
-                handleDownVote={this.handleDownVote}              
+                handleDownVote={this.handleDownVote}
+                onSortChange={this.onSortChange}              
                 />} exact={true} />
               <Route path="/create"  render={() => <AddLinkPage {...this.state} handleAddOption={this.handleAddOption} />}/>        
           </Switch>
@@ -115,18 +142,6 @@ class AddLinkPage extends React.Component {
     )
   }
 }
-
-const Action = (props) =>(
-    <div>
-      <button
-        className='big-button'
-        onClick={props.handlePick}
-        disabled={!props.hasOptions}
-      >
-        What should I do?
-      </button>
-    </div>
-  );
 
 class AddOption extends React.Component {
     state = {
@@ -212,16 +227,22 @@ const Options = (props) =>  (
 
 
 class Main extends React.Component {
-  
+ 
   render() {
     return (
-      <div className='main'>      
-       
+      <div className='main'>       
         <div className='container'>
-        <Link className='big-button' to="/create" activeClassName="is-active">
-        <button className='big-button'>SUBMIT A LINK</button>
-        </Link>
+          <Link className='big-button' to="/create" activeClassName="is-active">
+          <button className='big-button'>SUBMIT A LINK</button>
+          </Link>
         <div className='widget'>
+          <select
+          value={this.props.filters.sortBy}
+          onChange={this.props.onSortChange}
+          >
+          <option value='Asc' >Asc</option>
+          <option value='Desc'>Desc</option>
+          </select>
       <Options
       options={this.props.options}
       handleUpVote={this.props.handleUpVote}
