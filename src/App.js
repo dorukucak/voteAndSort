@@ -39,7 +39,6 @@ class App extends React.Component {
     }));
   };
 
-
   componentDidMount() {
     try {
       const json = localStorage.getItem('options');
@@ -70,8 +69,7 @@ class App extends React.Component {
               <Route path="/" render={() => 
                 <Main {...this.state} 
                 handleDeleteOptions={this.handleDeleteOptions}
-                handleDeleteOption={this.handleDeleteOption}
-                
+                handleDeleteOption={this.handleDeleteOption}                
                 />} exact={true} />
               <Route path="/create"  render={() => <AddLinkPage {...this.state} handleAddOption={this.handleAddOption} />}/>        
           </Switch>
@@ -148,7 +146,7 @@ class AddOption extends React.Component {
 );
 
 Header.defaultProps = {
-  title: 'Indecision'
+  title: 'Hepsiburada'
 };
 
 const Option = (props) => (
@@ -211,16 +209,11 @@ class Main extends React.Component {
     const subtitle = 'Put your life in the hands of a computer';
 
     return (
-      <div>
-      <NavLink to="/create" activeClassName="is-active">SUBMIT A LINK</NavLink>
-        <Header subtitle={subtitle} />
+      <div>      
+       
         <div className='container'>
-        
-        <Action
-        hasOptions={this.props.options.length > 0}
-        handlePick={this.props.handlePick}
-      />
-      <div className='widget'>
+        <NavLink to="/create" activeClassName="is-active">SUBMIT A LINK</NavLink>
+        <div className='widget'>
       <Options
       options={this.props.options}
       handleDeleteOptions={this.props.handleDeleteOptions}
