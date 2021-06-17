@@ -11,23 +11,15 @@ class App extends React.Component {
     this.state = {options: [],
       selectedOption: undefined};
   };
-
   
   handleDeleteSelectedOption = () => {
     this.setState(() => ({ selectedOption: undefined }));
   };
-  handleDeleteOptions = () => {
-    this.setState(() => ({ options: [] }));
-  };
+
   handleDeleteOption = (optionToRemove) => {
     this.setState((prevState) => ({
       options: prevState.options.filter((option, index) => optionToRemove !==  index + 1)
     }));
-  };
-  handlePick = () => {
-    const randomNum = Math.floor(Math.random() * this.state.options.length);
-    const option = this.state.options[randomNum];
-    this.setState(() => ({selectedOption: option}));
   };
 
   handleAddOption = (option) => {
@@ -41,14 +33,18 @@ class App extends React.Component {
     }));
   };
 
-   handleUpVote = (siteCount) => {     
+   handleUpVote = (siteCount, siteVote) => {     
     this.state.options.map((site, index) => {
       if(index + 1 == siteCount)
       {
-        console.log(index);
-        alert('UpVote');}
-    }) 
-   }
+      //  const newOptions = this.state.options.slice() //copy the array
+        this.state.options[index][2] = siteVote + 1; //execute the manipulations
+        
+        this.setState((prevState) => 
+            ({options: prevState.options.concat([])})) //set the new state
+            
+    }})    
+   };
 
   componentDidMount() {
     try {
@@ -169,7 +165,7 @@ const Option = (props) => (
       }}>remove</button>    
       <button className='upVote'
       onClick={(e) => {
-        props.handleUpVote(props.count);
+        props.handleUpVote(props.count, props.vote);
       }}>Up Vote</button>
     
   </div>
