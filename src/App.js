@@ -65,8 +65,8 @@ class App extends React.Component {
       <div>
           <Header />        
           <Switch>
-              <Route path="/" render={() => <Main {...this.state}/>} />
-              <Route path="/create" component={AddLinkPage} {...this.state}  />           
+              <Route path="/" render={() => <Main {...this.state}/>} exact={true} />
+              <Route path="/create"  render={() => <AddLinkPage {...this.state}/>}/>        
           </Switch>
           </div> 
    </BrowserRouter>
@@ -202,8 +202,10 @@ class Main extends React.Component {
 
     return (
       <div>
+      <NavLink to="/create" activeClassName="is-active">SUBMIT A LINK</NavLink>
         <Header subtitle={subtitle} />
         <div className='container'>
+        
         <Action
         hasOptions={this.props.options.length > 0}
         handlePick={this.props.handlePick}
