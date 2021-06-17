@@ -1,5 +1,8 @@
-.App {
+.outer {
   text-align: center;
+  margin-right: 5%;
+  margin-left: 5%;
+  max-width: 960px;
 }
 
 .App-logo {
@@ -35,4 +38,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.header {
+  display: flex;
+  margin: auto
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  margin: auto
+}
+
+.big-button {
+  margin: auto;
+  height: 100px;
+  width: 200px;
+  font-size: 20px;
+
 }
