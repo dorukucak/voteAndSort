@@ -46,6 +46,20 @@ class App extends React.Component {
     }})    
    };
 
+   handleDownVote = (siteCount, siteVote) => {     
+    this.state.options.map((site, index) => {
+      if(siteVote == 0) {return}
+      else if(index + 1 == siteCount)
+      {
+      //  const newOptions = this.state.options.slice() //copy the array
+        this.state.options[index][2] = siteVote - 1; //execute the manipulations
+        
+        this.setState((prevState) => 
+            ({options: prevState.options.concat([])})) //set the new state
+            
+    }})    
+   };
+
   componentDidMount() {
     try {
       const json = localStorage.getItem('options');
@@ -77,7 +91,8 @@ class App extends React.Component {
                 <Main {...this.state} 
                 handleDeleteOptions={this.handleDeleteOptions}
                 handleDeleteOption={this.handleDeleteOption}  
-                handleUpVote={this.handleUpVote}              
+                handleUpVote={this.handleUpVote}
+                handleDownVote={this.handleDownVote}              
                 />} exact={true} />
               <Route path="/create"  render={() => <AddLinkPage {...this.state} handleAddOption={this.handleAddOption} />}/>        
           </Switch>
@@ -129,6 +144,7 @@ class AddOption extends React.Component {
   
       if (!error) {
         e.target.elements.title.value = '';
+        e.target.elements.link.value = '';
       }
     };
     render() {
@@ -163,10 +179,14 @@ const Option = (props) => (
       onClick={(e) => {
         props.handleDeleteOption(props.count);
       }}>remove</button>    
-      <button className='upVote'
+      <button className='vote'
       onClick={(e) => {
         props.handleUpVote(props.count, props.vote);
       }}>Up Vote</button>
+      <button className='vote'
+      onClick={(e) => {
+        props.handleDownVote(props.count, props.vote);
+      }}>Down Vote</button>
     
   </div>
 );
@@ -183,6 +203,7 @@ const Options = (props) =>  (
         vote={option[2]}
         count={index + 1}
         handleUpVote={props.handleUpVote}
+        handleDownVote={props.handleDownVote}
         handleDeleteOption={props.handleDeleteOption}
       />
     ))
@@ -204,6 +225,7 @@ class Main extends React.Component {
       <Options
       options={this.props.options}
       handleUpVote={this.props.handleUpVote}
+      handleDownVote={this.props.handleDownVote}
       handleDeleteOptions={this.props.handleDeleteOptions}
       handleDeleteOption={this.props.handleDeleteOption}
     />
