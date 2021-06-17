@@ -21,7 +21,7 @@ class App extends React.Component {
   };
   handleDeleteOption = (optionToRemove) => {
     this.setState((prevState) => ({
-      options: prevState.options.filter((option) => optionToRemove !== option)
+      options: prevState.options.filter((option, index) => optionToRemove !==  index + 1)
     }));
   };
   handlePick = () => {
@@ -40,6 +40,15 @@ class App extends React.Component {
       options: prevState.options.concat([option])
     }));
   };
+
+   handleUpVote = (siteCount) => {     
+    this.state.options.map((site, index) => {
+      if(index + 1 == siteCount)
+      {
+        console.log(index);
+        alert('UpVote');}
+    }) 
+   }
 
   componentDidMount() {
     try {
@@ -71,7 +80,8 @@ class App extends React.Component {
               <Route path="/" render={() => 
                 <Main {...this.state} 
                 handleDeleteOptions={this.handleDeleteOptions}
-                handleDeleteOption={this.handleDeleteOption}                
+                handleDeleteOption={this.handleDeleteOption}  
+                handleUpVote={this.handleUpVote}              
                 />} exact={true} />
               <Route path="/create"  render={() => <AddLinkPage {...this.state} handleAddOption={this.handleAddOption} />}/>        
           </Switch>
@@ -115,7 +125,8 @@ class AddOption extends React.Component {
       e.preventDefault();
       const title = e.target.elements.title.value.trim();
       const link =  e.target.elements.link.value.trim();
-      const option = [title, link]
+      const vote = 0;
+      const option = [title, link, vote]
       const error = this.props.handleAddOption(option);
   
       this.setState(() => ({ error }));
@@ -151,35 +162,18 @@ class AddOption extends React.Component {
 
 const Option = (props) => (
   <div className='option'>
-    <p className='option__text'>{props.count}.{props.optionText} {props.link}</p>
+    <p className='option__text'>{props.vote} {props.optionText} {props.link}</p>
     <button className='button button--link'
       onClick={(e) => {
-        props.handleDeleteOption(props.optionText);
-      }}
-    >
-      remove
-    </button>
+        props.handleDeleteOption(props.count);
+      }}>remove</button>    
+      <button className='upVote'
+      onClick={(e) => {
+        props.handleUpVote(props.count);
+      }}>Up Vote</button>
+    
   </div>
 );
-
-
-
-// const OptionModal = (props) => (
-//   <Modal
-//     isOpen={!!props.selectedOption}
-//     onRequestClose={props.handleDeleteSelectedOption}
-//     contentLabel="Selected Option"
-//     closeTimeoutMS={200}
-//     className="modal"
-//   >
-//    <h3 className='modal__title'>Selected Option</h3>
-//    {props.selectedOption && <p className='modal-body'>{props.selectedOption}</p>}
-//    <button className='button' onClick={props.handleDeleteSelectedOption}>Okay</button>
-//   </Modal>
-  
-// );
-
-
 
 const Options = (props) =>  (
   <div>  
@@ -187,10 +181,12 @@ const Options = (props) =>  (
   {
     props.options.map((option, index) => (
       <Option 
-        key={option[0]}
+        key={index}
         optionText={option[0]}
         link={option[1]}
+        vote={option[2]}
         count={index + 1}
+        handleUpVote={props.handleUpVote}
         handleDeleteOption={props.handleDeleteOption}
       />
     ))
@@ -211,6 +207,7 @@ class Main extends React.Component {
         <div className='widget'>
       <Options
       options={this.props.options}
+      handleUpVote={this.props.handleUpVote}
       handleDeleteOptions={this.props.handleDeleteOptions}
       handleDeleteOption={this.props.handleDeleteOption}
     />
@@ -230,3 +227,19 @@ class Main extends React.Component {
 
 
 export default App;
+
+
+// const OptionModal = (props) => (
+//   <Modal
+//     isOpen={!!props.selectedOption}
+//     onRequestClose={props.handleDeleteSelectedOption}
+//     contentLabel="Selected Option"
+//     closeTimeoutMS={200}
+//     className="modal"
+//   >
+//    <h3 className='modal__title'>Selected Option</h3>
+//    {props.selectedOption && <p className='modal-body'>{props.selectedOption}</p>}
+//    <button className='button' onClick={props.handleDeleteSelectedOption}>Okay</button>
+//   </Modal>
+  
+// );
