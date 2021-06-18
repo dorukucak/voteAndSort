@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should ascending-sort data on Options correctly 1`] = `
+<div>
+  <list
+    className="list"
+  >
+    <Option
+      count={1}
+      key="0"
+      link="www.hepsiburada.com"
+      optionText="hepsiburada"
+      vote={5}
+    />
+    <Option
+      count={2}
+      key="1"
+      link="www.n11.com"
+      optionText="n11"
+      vote={2}
+    />
+  </list>
+</div>
+`;
+
+exports[`should render App correctly 1`] = `
+<div>
+  <BrowserRouter>
+    <div
+      className="outer"
+    >
+      <Header />
+      <Switch>
+        <Route
+          exact={true}
+          path="/"
+          render={[Function]}
+        />
+        <Route
+          path="/create"
+          render={[Function]}
+        />
+      </Switch>
+    </div>
+  </BrowserRouter>
+</div>
+`;
+
+exports[`should show data on Main Page correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="container"
+  >
+    <Link
+      activeClassName="is-active"
+      className="big-button"
+      to="/create"
+    >
+      <button
+        className="big-button"
+      >
+        SUBMIT A LINK
+      </button>
+    </Link>
+    <div
+      className="widget"
+    >
+      <select>
+        <option
+          value="Asc"
+        >
+          Desc
+        </option>
+          
+        <option
+          value="Desc"
+        >
+          Asc
+        </option>
+      </select>
+      <Options
+        options={
+          Array [
+            Array [
+              "hepsiburada",
+              "www.hepsiburada.com",
+              5,
+            ],
+            Array [
+              "n11",
+              "www.n11.com",
+              2,
+            ],
+          ]
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

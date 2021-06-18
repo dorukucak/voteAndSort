@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import logo from './hepsiburada-logo.png';
-// import Modal from 'react-modal';
-// Modal.setAppElement('#app');
+
+// App creation
 
 class App extends React.Component {
   constructor(props) {
@@ -13,15 +13,15 @@ class App extends React.Component {
       selectedOption: undefined};
   };
   
-  handleDeleteSelectedOption = () => {
-    this.setState(() => ({ selectedOption: undefined }));
-  };
+  // Handles deletion of website entry - Remove button
 
   handleDeleteOption = (optionToRemove) => {
     this.setState((prevState) => ({
       options: prevState.options.filter((option, index) => optionToRemove !==  index + 1)
     }));
   };
+ 
+  // Handles website addition - Add Link button at /create
 
   handleAddOption = (option) => {
     if (!option) {
@@ -35,6 +35,8 @@ class App extends React.Component {
     }));
   };
 
+  // Up vote handler
+
    handleUpVote = (siteCount, siteVote) => {     
     this.state.options.map((site, index) => {
       if(index + 1 == siteCount)
@@ -47,6 +49,8 @@ class App extends React.Component {
             
     }})    
    };
+
+   // Down vote handler
 
    handleDownVote = (siteCount, siteVote) => {     
     this.state.options.map((site, index) => {
@@ -62,6 +66,8 @@ class App extends React.Component {
     }})    
    };
 
+  // Sets new state of options(website entries) when a new entry is placed
+
   componentDidMount() {
     try {
       const json = localStorage.getItem('options');
@@ -74,6 +80,9 @@ class App extends React.Component {
       // Do nothing at all
     }
   }
+
+  // Updates localstorage upon change in state from componentDidMount
+
   componentDidUpdate(prevProps, prevState) {
   
       const json = JSON.stringify(this.state.options);
@@ -83,6 +92,8 @@ class App extends React.Component {
   componentWillUnmount() {
     console.log('componentWillUnmount');
   };
+
+// Dropdown list that toggles sort on change
 
 onSortChange = (e) => {    
     if (e.target.value === 'Asc') {
@@ -96,7 +107,7 @@ onSortChange = (e) => {
     }
     return 0;
     })
-  });} else  {
+  });} else if (e.target.value === 'Desc')  {
     this.setState({
     options: [...this.state.options].sort(function(a, b) {
       if (a[2] > b[2]) {
@@ -111,26 +122,31 @@ onSortChange = (e) => {
   };    
 
  render() { return (
+   <div>
       <BrowserRouter>
       <div className='outer'>
-          <Header />        
+          <Header />            
           <Switch>
               <Route path="/" render={() => 
                 <Main {...this.state} 
                 handleDeleteOption={this.handleDeleteOption}  
                 handleUpVote={this.handleUpVote}
                 handleDownVote={this.handleDownVote}
-                onSortChange={this.onSortChange}              
+                onSortChange={this.onSortChange}                          
                 />} exact={true} />
               <Route path="/create"  render={() => <AddLinkPage {...this.state} handleAddOption={this.handleAddOption} />}/>        
           </Switch>
+             
           </div> 
    </BrowserRouter>
+   </div>
   )};
   
 };
 
-class AddLinkPage extends React.Component {
+// Adding website entries -- appears at /create page
+
+export class AddLinkPage extends React.Component {
 
   render() {
     return (
@@ -143,6 +159,8 @@ class AddLinkPage extends React.Component {
     )
   }
 }
+
+// Text inputs for add website -- AddLinkPage child
 
 class AddOption extends React.Component {
     state = {
@@ -165,17 +183,21 @@ class AddOption extends React.Component {
     };
     render() {
       return (
-        <div>
+        <div class="c">
           {this.state.error && <p className='add-option-error'>{this.state.error}</p>}
           <form className='add-option' onSubmit={this.handleAddOption}>
-            <input className='add-option__input' type="text" name="title" />
-            <input className='add-option__link' type="text" name="link" />
-            <button className='button'>Add Option</button>
+            <p class="exp">Link Name:</p>
+            <input className='add-option__input' type="text" name="title" placeholder="Add Website Name"/>
+            <p class="exp">Link Name:</p>
+            <input className='add-option__link' type="text" name="link" placeholder="URL"/>
+            <button className='button'>Add Link</button>
           </form>
         </div>
       );
     }
   }
+
+  // Header - logo rendering
   
   const Header = (props) => (
   
@@ -187,11 +209,13 @@ class AddOption extends React.Component {
   
   );
 
+// Website entry
 
 const Option = (props) => (
   <div className='option'>
     <p className='option__text'>{props.vote} {props.optionText} {props.link}</p>
-    <button className='button button--link'
+    <div className="actionDiv">
+    <button className='vote'
       onClick={(e) => {
         props.handleDeleteOption(props.count);
       }}>remove</button>    
@@ -203,11 +227,13 @@ const Option = (props) => (
       onClick={(e) => {
         props.handleDownVote(props.count, props.vote);
       }}>Down Vote</button>
-    
+      </div>
   </div>
 );
 
-const Options = (props) =>  (
+//Websites entry list
+
+export const Options = (props) =>  (
   <div>  
   {props.options.length === 0 && <p className='widget__message'>Please submit a link to get started!</p>}
   <list className='list'>{
@@ -226,8 +252,9 @@ const Options = (props) =>  (
   }</list>
   </div>);
 
+//Main page
 
-class Main extends React.Component {
+export class Main extends React.Component {
  
   render() {
     return (
@@ -236,30 +263,23 @@ class Main extends React.Component {
           <Link className='big-button' to="/create" activeClassName="is-active">
           <button className='big-button'>SUBMIT A LINK</button>
           </Link>
-        <div className='widget'>
-          <select
-          value={this.props.filters.sortBy}
-          onChange={this.props.onSortChange}
-          >
-          <option value='Asc' >Desc</option>  {/* reverse value due to flex-direction: column-reverse at App.css */}
-          <option value='Desc'>Asc</option>
-          </select>
-      <Options
-      options={this.props.options}
-      handleUpVote={this.props.handleUpVote}
-      handleDownVote={this.props.handleDownVote}
-      handleDeleteOptions={this.props.handleDeleteOptions}
-      handleDeleteOption={this.props.handleDeleteOption}
-    />
-    
-      </div>
-      
+          <div className='widget'>
+            <select
+            value={this.props.filters.sortBy}
+            onChange={this.props.onSortChange}
+            >
+            <option value='Asc' >Desc</option>  {/* reverse value due to flex-direction: column-reverse at App.css */}
+            <option value='Desc'>Asc</option>
+            </select>
+            <Options
+            options={this.props.options}
+            handleUpVote={this.props.handleUpVote}
+            handleDownVote={this.props.handleDownVote}
+            handleDeleteOptions={this.props.handleDeleteOptions}
+            handleDeleteOption={this.props.handleDeleteOption}
+            />    
+          </div>      
         </div>
-        
-       {/* <OptionModal 
-        selectedOption={this.state.selectedOption}
-        handleDeleteSelectedOption={this.handleDeleteSelectedOption}
-    />*/}
       </div>
     );
   }
@@ -269,17 +289,3 @@ class Main extends React.Component {
 export default App;
 
 
-// const OptionModal = (props) => (
-//   <Modal
-//     isOpen={!!props.selectedOption}
-//     onRequestClose={props.handleDeleteSelectedOption}
-//     contentLabel="Selected Option"
-//     closeTimeoutMS={200}
-//     className="modal"
-//   >
-//    <h3 className='modal__title'>Selected Option</h3>
-//    {props.selectedOption && <p className='modal-body'>{props.selectedOption}</p>}
-//    <button className='button' onClick={props.handleDeleteSelectedOption}>Okay</button>
-//   </Modal>
-  
-// );

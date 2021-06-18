@@ -63,3 +63,29 @@
   display: flex;
   flex-direction: column-reverse
 }
+
+.add-option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+}
+
+.c{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 12px;
+}
+
+.exp{
+  display: flex;
+}
+
+.actionDiv{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 250px;
+}
+
