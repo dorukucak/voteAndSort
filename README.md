@@ -4,11 +4,10 @@ This app lets the user enter and sort entries based on a number of parameters
 
 ## Running the app locally
 
-Project is installed using create-react-app. It can be run using npm install. From terminal, go one level below using 
-
+Project is installed using create-react-app. It can be run using npm install. From terminal, 
 
 ```shell
-cd my-app
+npm install
 ```
 
 ### `npm start`
