@@ -47,7 +47,7 @@ export default (props) => {
         <div>
         </div>
         <button className='delete' onClick={(e) => props.handleDeleteOption(props.count, props.optionText)}>
-          </button>
+          X </button>
       </div>
     </CardBody>
   </Card>
