@@ -1,10 +1,10 @@
 # Simple case app that lists and sorts entries.
 
-This app lets the user enter and sort entries based on a number of parameters 
+This app lets the user enter and sort entries based on a number of parameters
 
 ## Running the app locally
 
-Project is installed using create-react-app. It can be run using npm install. From terminal, 
+Project is installed using create-react-app. It can be run using npm install. From terminal,
 
 ```shell
 npm install
@@ -19,4 +19,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Launches the test runner in the interactive watch mode.\
 Uses jest and enzyme in order to test the application.
-

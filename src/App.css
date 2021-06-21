@@ -1,7 +1,7 @@
 .outer {
   text-align: center;
-  margin-right: 5%;
-  margin-left: 5%;
+  margin-right: 10%;
+  margin-left: 10%;
   max-width: 960px;
 }
 
@@ -41,14 +41,20 @@
 }
 
 .header {
-  display: flex;
-  margin: auto
+  border-bottom: 1px solid #000;
+  margin-bottom: 50px;
 }
+
+.del-icon {
+  width: 10%;
+  height: auto
+}
+
 
 .main {
   display: flex;
   justify-content: center;
-  margin: auto
+  margin: auto;
 }
 
 .big-button {
@@ -56,36 +62,121 @@
   height: 100px;
   width: 200px;
   font-size: 20px;
-
 }
 
-.list {
+.links {
   display: flex;
-  flex-direction: column-reverse
+  flex-direction: column-reverse;
 }
 
 .add-option {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 400px;
+  max-width: 270px;
 }
 
-.c{
+.c {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  font-size: 12px;
+  flex-direction: column;
+  justify-content: center;
+ 
 }
 
-.exp{
+.c2 {
+text-align: right;
+margin-top: 5px;
+ 
+}
+
+.exp {
   display: flex;
 }
 
-.actionDiv{
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  width: 250px;
+
+.hepsiLogo {
+  height: 100px;
+  cursor: pointer;
 }
 
+.linkCard {
+  border: none;
+  transition: background-color 0.25s ease;
+}
+
+.linkCard:hover {
+  background-color: #eeeeee;
+}
+
+.linkCard:hover .delete {
+  opacity: 1;
+}
+
+.voteBox {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 10px 15px 15px;
+  background-color: #ececec;
+  border: #c2c2c2 2px solid;
+  border-radius: 10px;
+  margin-right: 20px;
+  width: 88px;
+}
+
+.voteCount {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.voteLabel {
+  font-size: 15px;
+}
+
+.name {
+  font-size: 23px;
+  font-weight: bolder;
+}
+
+.link {
+  font-size: 15px;
+  color: #c2c2c2;
+}
+
+.returnLink {
+  text-decoration: none;
+  color: #000;
+}
+
+
+.action {
+  font-size: 13px;
+  padding: 3px 5px;
+  text-decoration: none;
+  color: #767676;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: #e3e3e3 5px solid;
+}
+
+.delete {
+  background-color: #d50404;
+  color: #fff;
+  font-weight: bolder;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
