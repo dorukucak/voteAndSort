@@ -7,7 +7,7 @@ import {
   Link,
   NavLink,
 } from "react-router-dom";
-import hepsiLogo from "./hepsiburada-logo.png";
+
 import { toast } from "react-toastify";
 import "bootstrap/dist/css/bootstrap.css";
 import { Col, Container, Row } from "reactstrap";
@@ -182,11 +182,9 @@ export class App extends React.Component {
             <Row className="header">
               <Col>
                 <Link to="/">
-                  <img
-                    className="hepsiLogo"
-                    src={hepsiLogo}
-                    alt="hepsiburada"
-                  />
+                  <span>
+                    Vote and Sort
+                  <span/>
                 </Link>
               </Col>
               <Col className="d-flex align-items-center justify-content-end">
