@@ -1,3 +1,7 @@
+.landing {
+  margin-top: 50px;
+}
+
 .outer {
   text-align: center;
   margin-right: 10%;
@@ -42,7 +46,8 @@
 
 .header {
   border-bottom: 1px solid #000;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
+  margin-top: 50px;
 }
 
 .del-icon {

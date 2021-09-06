@@ -4,8 +4,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link,
-  NavLink,
 } from "react-router-dom";
 
 import { toast } from "react-toastify";
@@ -176,23 +174,18 @@ export class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="landing">
         <Router>
           <Container>
-            <Row className="header">
-              <Col>
-                <Link to="/">
-                  <span>
-                    Vote and Sort
-                  <span/>
-                </Link>
-              </Col>
-              <Col className="d-flex align-items-center justify-content-end">
+            <Row className="header">              
+              <Col className="d-flex align-items-center justify-content-start">
                 <h3>
-                  <strong>Link</strong>
-                  <span className="fw-lighter">VOTE</span>{" "}
-                  <span className="fw-light">Challenge</span>
-                </h3>
+                  <strong>Vote</strong>
+                  <span className="fw-light fs-2">&</span>
+                  <span className="fw-lighter">SORT</span>{" "}
+                  
+                </h3><br/>
+                <span className="fst-italic">by Doruk Uçak</span>
               </Col>
             </Row>
             <Switch>
