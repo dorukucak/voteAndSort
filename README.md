@@ -1,4 +1,4 @@
-# Simple case app that lists and sorts entries.
+# Simple app that lists and sorts entries.
 
 This app lets the user enter and sort entries based on a number of parameters
 
